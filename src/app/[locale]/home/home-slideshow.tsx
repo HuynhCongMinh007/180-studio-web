@@ -1,13 +1,12 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useState } from "react";
-import type { HomeSlide } from "@/lib/types/domain";
+import type { HomeSlideResponse } from "@/lib/types/home-slides";
 
 const SLIDE_INTERVAL_MS = 4000;
 
 /** Shows the current slide full screen and moves to the next one on a timer. */
-export function HomeSlideshow({ slides }: { slides: HomeSlide[] }) {
+export function HomeSlideshow({ slides }: { slides: HomeSlideResponse[] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const totalSlides = slides.length;
 
@@ -40,15 +39,14 @@ export function HomeSlideshow({ slides }: { slides: HomeSlide[] }) {
         const isFirstSlide = index === 0;
 
         return (
-          <Image
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
             key={slide.id}
             src={slide.image.url}
             alt={slide.image.alt ?? ""}
-            fill
-            sizes="100vw"
             // The first image is the first thing visitors see, so load it early.
-            priority={isFirstSlide}
-            className={`object-cover transition-opacity duration-2000 ${isCurrentSlide ? "opacity-100" : "opacity-0"
+            loading={isFirstSlide ? "eager" : "lazy"}
+            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-2000 ${isCurrentSlide ? "opacity-100" : "opacity-0"
               }`}
           />
         );

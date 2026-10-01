@@ -1,9 +1,9 @@
 import { api } from "../api";
-import { mockHomeSlides } from "../mock/home-slides";
+import { ENDPOINTS } from "../constants/endpoints";
+import { HomeSlideResponse } from "../types/home-slides";
 
-export async function Slides() {
-    const url = 'mock'
-    // const res = api.get(url)
-    const res = mockHomeSlides
-    return res
+export async function HomeSlides(): Promise<HomeSlideResponse[]> {
+    const url = ENDPOINTS.HOME_SLIDES
+    const res = await api.get<HomeSlideResponse[]>(url)
+    return res.data
 }

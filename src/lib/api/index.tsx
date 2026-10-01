@@ -1,6 +1,7 @@
 import qs from 'qs'
 import { getCookies } from "../utils/getCookies";
-import { ApiError, ApiResponse } from '@/lib/types/generals';
+import { ApiResponse } from '@/lib/types/generals';
+import { ApiErrorBody, ApiRequestError } from './api-error';
 
 type RequestOptions = RequestInit & { params?: Record<string, any> }
 
@@ -31,6 +32,7 @@ export class Api {
         // addQueryPrefix prepends '?' so it can be concatenated directly onto the URL below
         const queryString = params ? qs.stringify(params, { addQueryPrefix: true }) : ''
         const url = `${this.baseUrl}${endpoint}${queryString}`
+        const method = (fetchOptions.method ?? 'GET').toUpperCase()
 
         const config: RequestInit = {
             credentials: 'include',
@@ -45,15 +47,39 @@ export class Api {
             },
         }
 
-        const res = await fetch(url, config)
+        let res: Response
+        try {
+            res = await fetch(url, config)
+        } catch (cause) {
+            console.error(`[API network error] ${method} ${url}`, cause)
+            throw new ApiRequestError({
+                message: `${method} ${url} failed: no response from server`,
+                status: 0,
+                method,
+                url,
+                body: null,
+            })
+        }
 
         if (!res.ok) {
-            const errorData = await (await res.json()) as ApiError
-            console.error('API Error:', errorData)
-            throw new Error(
-                Array.isArray(errorData.error?.details) ? errorData.error?.details[0]?.message
-                    : errorData.error?.details || 'Something went wrong',
-            )
+            const text = await res.text()
+            let body: ApiErrorBody = text || null
+            try {
+                body = JSON.parse(text)
+            } catch {
+            }
+
+            const apiError = typeof body === 'object' && body !== null ? body : null
+            const message = apiError?.message || `${method} ${endpoint} failed (${res.status})`
+
+            console.error(`[API ${res.status}] ${method} ${url}`, {
+                messageCode: apiError?.messageCode,
+                requestId: apiError?.requestId,
+                details: apiError?.error?.details,
+                rawBody: apiError ? undefined : text.slice(0, 200),
+            })
+
+            throw new ApiRequestError({ message, status: res.status, method, url, body })
         }
         return res
     }
@@ -106,15 +132,9 @@ export class Api {
     }
 }
 
-// `window` only exists in the browser, so this is the standard way to detect
-// whether the module is currently evaluated on the server or the client.
 const isServer = typeof window === 'undefined'
-
-// Next.js only inlines env vars prefixed with NEXT_PUBLIC_ into the client bundle;
-// server-only vars (no prefix) are never exposed to the browser for security reasons.
-// That's why the base URL source must branch on `isServer` instead of using one var everywhere.
 const defaultBaseUrl = (isServer ? process.env.BACKEND_URL : process.env.NEXT_PUBLIC_BACKEND_URL) || ''
 
 const api = new Api(defaultBaseUrl)
 
-export {api}
+export { api }
