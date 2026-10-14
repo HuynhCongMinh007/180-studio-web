@@ -15,3 +15,7 @@ export function proxy(request: NextRequest) {
     url.pathname = `/${locale}${pathname === '' ? "" : pathname}`
     return NextResponse.redirect(url)
 }
+
+export const config = {
+    matcher: ['/((?!api|_next/static|_next/image|favicon.ico|assets|.well-known).*)'],
+}
