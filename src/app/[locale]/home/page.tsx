@@ -1,6 +1,6 @@
 import { HomeSlideshow } from "./home-slideshow";
 // import { SiteFooter } from "@/components/public/site-footer";
-import { SiteHeader } from "@/components/public/site-header";
+import { SiteHeader } from "@/app/[locale]/home/site-header";
 import { HomeSlides } from "@/lib/services/home.service";
 
 export default async function Home() {
