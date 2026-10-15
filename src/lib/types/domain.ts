@@ -1,4 +1,4 @@
 export interface SiteLogo {
-  url: string;
-  publicId?: string;
+  url: string
+  publicId?: string
 }

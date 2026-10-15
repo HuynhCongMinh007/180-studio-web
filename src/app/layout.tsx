@@ -1,24 +1,24 @@
-import type { Metadata } from "next";
-import { Geist_Mono, Inter } from "next/font/google";
-import { Toaster } from "@/components/ui/sonner";
-import "./globals.css";
+import type { Metadata } from 'next'
+import { Geist_Mono, Inter } from 'next/font/google'
+import { Toaster } from '@/components/ui/sonner'
+import './globals.css'
 
 const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin", "vietnamese"],
-});
+  variable: '--font-inter',
+  subsets: ['latin', 'vietnamese'],
+})
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+  variable: '--font-geist-mono',
+  subsets: ['latin'],
+})
 
 export const metadata: Metadata = {
-  title: "180 Studio",
-  description: "180 Studio architecture portfolio.",
-};
+  title: '180 Studio',
+  description: '180 Studio architecture portfolio.',
+}
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html
       lang="en"
@@ -29,5 +29,5 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Toaster />
       </body>
     </html>
-  );
+  )
 }

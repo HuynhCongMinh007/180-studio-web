@@ -1,11 +1,11 @@
-import Link from "next/link";
-import type { ProjectListItemResponse } from "@/lib/types/projects";
+import Link from 'next/link'
+import type { ProjectListItemResponse } from '@/lib/types/projects'
 
 /** Shows projects as a grid of cover images with the title on top of each image. */
 export function ProjectGrid({
   projects,
 }: {
-  projects: ProjectListItemResponse[];
+  projects: ProjectListItemResponse[]
 }) {
   // Empty state: a blank page would look broken.
   if (projects.length === 0) {
@@ -13,7 +13,7 @@ export function ProjectGrid({
       <p className="py-32 text-center text-sm tracking-[0.3em] text-neutral-500 uppercase">
         No projects yet
       </p>
-    );
+    )
   }
 
   return (
@@ -32,7 +32,7 @@ export function ProjectGrid({
               src={project.coverImage.url}
               alt={project.coverImage.alt ?? project.title}
               // The first row is visible on load, so it should not wait for scrolling.
-              loading={index < 3 ? "eager" : "lazy"}
+              loading={index < 3 ? 'eager' : 'lazy'}
               className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
             />
             <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/0 to-transparent transition-colors duration-500 group-hover:from-black/75" />
@@ -51,5 +51,5 @@ export function ProjectGrid({
         </li>
       ))}
     </ul>
-  );
+  )
 }

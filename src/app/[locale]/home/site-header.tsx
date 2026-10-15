@@ -1,9 +1,9 @@
-import Link from "next/link";
+import Link from 'next/link'
 
 const NAV_ITEMS = [
-  { label: "Projects", href: "/projects" },
-  { label: "About", href: "/about" },
-];
+  { label: 'Projects', href: '/projects' },
+  { label: 'About', href: '/about' },
+]
 
 // Logo falls back to text until GET /api/v1/site/logo is available.
 export function SiteHeader() {
@@ -33,5 +33,5 @@ export function SiteHeader() {
         </Link>
       </div>
     </header>
-  );
+  )
 }

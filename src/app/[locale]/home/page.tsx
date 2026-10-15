@@ -1,7 +1,7 @@
-import { HomeSlideshow } from "./home-slideshow";
+import { HomeSlideshow } from './home-slideshow'
 // import { SiteFooter } from "@/components/public/site-footer";
-import { SiteHeader } from "@/app/[locale]/home/site-header";
-import { HomeSlides } from "@/lib/services/home.service";
+import { SiteHeader } from '@/app/[locale]/home/site-header'
+import { HomeSlides } from '@/lib/services/home.service'
 
 export default async function Home() {
   const slides = await HomeSlides()
@@ -13,5 +13,5 @@ export default async function Home() {
       </main>
       {/* <SiteFooter /> */}
     </div>
-  );
+  )
 }
