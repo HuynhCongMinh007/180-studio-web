@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getCookies } from "./lib/utils/getCookies";
 const locales = ['en', 'vi']
 
 export function proxy(request: NextRequest) {
@@ -17,5 +16,6 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-    matcher: ['/((?!api|_next/static|_next/image|favicon.ico|assets|.well-known).*)'],
+    // Skip api, Next.js internals and any path with a file extension (public images, fonts, svg).
+    matcher: ['/((?!api|_next/static|_next/image|.well-known|.*\\..*).*)'],
 }

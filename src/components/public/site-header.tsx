@@ -25,7 +25,7 @@ export function SiteHeader() {
           </ul>
         </nav>
         <Link
-          href="/"
+          href="/home"
           aria-label="180 Studio, home"
           className="order-1 text-center text-xl font-semibold tracking-[0.3em] md:order-2"
         >
