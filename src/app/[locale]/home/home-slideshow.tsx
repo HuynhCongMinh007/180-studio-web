@@ -26,7 +26,7 @@ export function HomeSlideshow({ slides }: { slides: HomeSlideResponse[] }) {
   if (totalSlides === 0) {
     return (
       <div className="flex h-full items-center justify-center bg-neutral-900 text-neutral-300">
-        <p className="text-sm tracking-[0.3em] uppercase">180 Studio</p>
+        <p className="text-sm">180 Studio</p>
       </div>
     )
   }

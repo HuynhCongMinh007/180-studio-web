@@ -6,6 +6,7 @@ import './globals.css'
 const inter = Inter({
   variable: '--font-inter',
   subsets: ['latin', 'vietnamese'],
+  axes: ['opsz'],
 })
 
 const geistMono = Geist_Mono({
