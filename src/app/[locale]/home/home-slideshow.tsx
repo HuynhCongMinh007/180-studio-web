@@ -44,7 +44,6 @@ export function HomeSlideshow({ slides }: { slides: HomeSlideResponse[] }) {
             key={slide.id}
             src={slide.image.url}
             alt={slide.image.alt ?? ''}
-            // The first image is the first thing visitors see, so load it early.
             loading={isFirstSlide ? 'eager' : 'lazy'}
             className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-2000 ${
               isCurrentSlide ? 'opacity-100' : 'opacity-0'

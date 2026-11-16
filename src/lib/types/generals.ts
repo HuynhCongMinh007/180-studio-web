@@ -18,14 +18,16 @@ export interface ApiError extends ApiBase {
   path: string
 }
 
+export interface PaginationMeta {
+  page: number
+  limit: number
+  total: number
+  totalPages: number
+  nextPage: number | null
+  prevPage: number | null
+}
+
 export interface ApiResponse<T = any> extends ApiBase {
   data: T
-  metadata?: {
-    page: number
-    limit: number
-    total: number
-    totalPages: number
-    nextPage: number | null
-    prevPage: number | null
-  }
+  metadata?: PaginationMeta
 }
