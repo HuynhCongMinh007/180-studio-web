@@ -14,7 +14,7 @@ export function ProjectsView(props: ProjectsViewProps) {
   return (
     <div className="flex min-h-svh flex-col">
       <SiteHeader />
-      <main className="flex flex-1 flex-col">
+      <main className="mx-auto flex w-full max-w-480 flex-1 flex-col">
         <h1 className="sr-only">Projects</h1>
         <ProjectGrid
           projects={props.projects}

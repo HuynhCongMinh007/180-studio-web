@@ -10,13 +10,13 @@ export function DetailProject({ project }: { project: ProjectDetail }) {
 
   return (
     <main>
-      <div className="bg-blue-300 h-150">
+      <div className="mx-auto aspect-video w-full max-w-480">
         <HomeSlideshow
           slides={toProjectSlides(project.projectImages, project.name)}
         />
       </div>
 
-      <div className="px-50 py-10">
+      <div className="mx-auto max-w-7xl px-4 py-10">
         <div className="grid grid-cols-2 gap-10">
           <div className="flex flex-col gap-2">
             <h2>{project.name}</h2>
