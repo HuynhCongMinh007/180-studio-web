@@ -1,4 +1,5 @@
 import { HomeSlideshow } from '@/app/[locale]/home/home-slideshow'
+import { ProjectGallery } from '@/app/[locale]/projects/[id]/project-gallery'
 import { ProjectDetail } from '@/lib/types/projects'
 import { toProjectSlides } from '@/lib/utils/project-slides'
 import { toYouTubeEmbedUrl } from '@/lib/utils/video-embed'
@@ -36,16 +37,10 @@ export function DetailProject({ project }: { project: ProjectDetail }) {
               />
             )}
             <span>Project gallery</span>
-            <div className="grid grid-cols-4 gap-2">
-              {project.projectImages.map((image) => (
-                <img
-                  key={image.imageUrl}
-                  src={image.imageUrl}
-                  alt={project.name}
-                  className="aspect-4/3 w-full object-cover"
-                />
-              ))}
-            </div>
+            <ProjectGallery
+              images={project.projectImages}
+              projectName={project.name}
+            />
           </div>
           <div>
             <h4>{project.name}</h4>

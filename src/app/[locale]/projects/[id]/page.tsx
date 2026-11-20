@@ -7,7 +7,6 @@ export default async function Project({
   const { id } = await params
   const res = await getProject(id)
   const data = res.data
-  console.log(data)
 
   return <DetailProject project={data} />
 }
