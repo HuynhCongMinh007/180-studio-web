@@ -1,4 +1,5 @@
 import { getProjects } from '@/lib/services/project.service'
+import type { PaginationMeta } from '@/lib/types/generals'
 import { ProjectsView } from './projects-view'
 
 export default async function ProjectsPage({
@@ -13,13 +14,35 @@ export default async function ProjectsPage({
 
   let limit = Math.floor(Number(query.limit))
   if (!limit || limit < 1) {
-    limit = 6
+    limit = 2
   }
   if (limit > 100) {
     limit = 100
   }
 
-  const res = await getProjects({ page, limit })
+  const firstPageLimit = limit + 1
+  const res = await getProjects(
+    page === 1
+      ? { limit: firstPageLimit, offset: 0 }
+      : { limit, offset: firstPageLimit + (page - 2) * limit },
+  )
 
-  return <ProjectsView projects={res.data} pagination={res.metadata} />
+  let pagination: PaginationMeta | undefined
+  if (res.metadata) {
+    const total = res.metadata.total
+    let totalPages = 1
+    if (total > firstPageLimit) {
+      totalPages = 1 + Math.ceil((total - firstPageLimit) / limit)
+    }
+    pagination = {
+      page,
+      limit,
+      total,
+      totalPages,
+      nextPage: page < totalPages ? page + 1 : null,
+      prevPage: page > 1 ? page - 1 : null,
+    }
+  }
+
+  return <ProjectsView projects={res.data} pagination={pagination} />
 }

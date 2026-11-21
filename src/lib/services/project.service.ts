@@ -2,7 +2,7 @@ import { api } from '../api'
 import { ENDPOINTS } from '../constants/endpoints'
 import { Project } from '../types/projects'
 
-export function getProjects(params?: { page?: number; limit?: number }) {
+export function getProjects(params?: { offset?: number; limit?: number }) {
   return api.get<Project['GET']>(ENDPOINTS.PROJECTS, { params })
 }
 
